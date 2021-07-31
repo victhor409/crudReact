@@ -19,6 +19,12 @@ export default class UserCrud extends Component{
 
     state = {...initialState}
 
+    componentWillUnmount(){
+        axios(baseUrl).then(resp =>{
+            this.setState({list: resp.data})
+        })
+    }
+
     clear(){
         this.setState({user: initialState.user})
     }
@@ -37,7 +43,7 @@ export default class UserCrud extends Component{
 
     getUpdatedList(user){
         const list = this.state.list.filter(u => u.id !== user.id)
-        list.unshift(user)
+        if(user)list.unshift(user)
         return list
     }
 
@@ -72,9 +78,10 @@ export default class UserCrud extends Component{
                                 placeholder="Digite o email"
                             ></input>
                         </div>
-
                     </div>
-                    <hr/>
+
+                    <br/>
+
                     <div className="row">
                         <div className="col-12 d-flex justify-content-end">
                             <button className="btn btn-primary"
@@ -96,6 +103,59 @@ export default class UserCrud extends Component{
         )
     }
 
+    load(user){
+        this.setState({user})
+    }
+
+    remove(user){
+        axios.delete(`${baseUrl}/${user.id}`).then(resp =>{
+            const list = this.getUpdatedList(user)
+            this.setState({list})
+        })
+    }
+
+    renderTable(){
+        return(
+            <table className="table mt-4">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.renderRows()}
+                </tbody>
+            </table>
+        )
+    }
+
+    renderRows(){
+        return this.state.list.map(user => {
+            return(
+                <tr key = {user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.name}</td>
+                    <td>{user.email}</td>
+                    <td>
+                        <button className="btn btn-warning">
+                            <i className="fa fa-pencil"
+                            onClick = {() => this.load(user)}></i>
+                        </button>
+                        <button className="btn btn-danger ml-2">
+                            <i className="fa fa-trash"
+                            onClick = {() => this.remove(user)}></i>
+                        </button>
+
+                    </td>
+
+                </tr>
+            )
+        })
+    }
+
 
     render(){
 
@@ -103,6 +163,7 @@ export default class UserCrud extends Component{
             
             <Main {...headerProps}>
                 {this.renderForm()}
+                {this.renderTable()}
             </Main>
 
         )

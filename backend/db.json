@@ -6,26 +6,15 @@
       "email": "aoloveira@coder.com"
     },
     {
-      "id": 2,
+      
       "name": "Maria Julia",
-      "email": "amjds@gmail.com"
+      "email": "amjds@gmail.com",
+      "id": 2
     },
     {
-      "email": "victhor409@gmail.com",
-      "id": 3
-    },
-    {
-      "email": "sc@gmail.com",
+      "name": "Samuel",
+      "email": "sv@gmail.com",
       "id": 4
-    },
-    {
-      "email": "spider@gmai.com",
-      "id": 5
-    },
-    {
-      "name": "daniel",
-      "email": "daniel@gmail.com",
-      "id": 6
     }
   ]
 }
