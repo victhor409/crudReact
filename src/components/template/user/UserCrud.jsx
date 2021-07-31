@@ -19,7 +19,7 @@ export default class UserCrud extends Component{
 
     state = {...initialState}
 
-    componentWillUnmount(){
+    componentWillMount(){
         axios(baseUrl).then(resp =>{
             this.setState({list: resp.data})
         })
@@ -80,7 +80,7 @@ export default class UserCrud extends Component{
                         </div>
                     </div>
 
-                    <br/>
+                    <hr/>
 
                     <div className="row">
                         <div className="col-12 d-flex justify-content-end">
